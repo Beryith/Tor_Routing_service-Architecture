@@ -1,0 +1,7 @@
+tor_service/
+│── torrc                # Configuration Tor
+│── iptables_config.py   # Redirection du trafic TCP vers Tor
+│── tor_controller.py    # Contrôle de Tor (SIGNAL NEWNYM)
+│── rotation_thread.py   # Thread de rotation d’identité
+│── utils.py             # Logging, validation, sécurité
+│── tor_service.py       # Point d’entrée principal
