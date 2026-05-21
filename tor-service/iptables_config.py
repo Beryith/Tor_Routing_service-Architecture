@@ -1,4 +1,3 @@
-# iptables_config.py
 import subprocess
 from utils import log_result
 
@@ -9,13 +8,13 @@ def configure_iptables():
     """
     try:
         rules = [
-            "iptables -t nat -A OUTPUT -p tcp --syn -m owner ! --uid-owner debian-tor -j REDIRECT --to-ports 9040",
-            "iptables -t nat -A OUTPUT -d 127.0.0.1/8 -j RETURN",
-            "iptables -t nat -A OUTPUT -d 192.168.0.0/16 -j RETURN",
-            "iptables -t nat -A OUTPUT -d 10.0.0.0/8 -j RETURN"
+            ["iptables", "-t", "nat", "-A", "OUTPUT", "-p", "tcp", "--syn", "-m", "owner", "!", "--uid-owner", "debian-tor", "-j", "REDIRECT", "--to-ports", "9040"],
+            ["iptables", "-t", "nat", "-A", "OUTPUT", "-d", "127.0.0.1/8", "-j", "RETURN"],
+            ["iptables", "-t", "nat", "-A", "OUTPUT", "-d", "192.168.0.0/16", "-j", "RETURN"],
+            ["iptables", "-t", "nat", "-A", "OUTPUT", "-d", "10.0.0.0/8", "-j", "RETURN"]
         ]
         for rule in rules:
-            subprocess.run(rule, shell=True, check=True)
+            subprocess.run(rule, check=True)
         log_result("iptables configured successfully.")
     except subprocess.CalledProcessError as e:
         log_result(f"Error configuring iptables: {e}")
